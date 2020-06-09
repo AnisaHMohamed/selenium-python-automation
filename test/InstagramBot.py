@@ -30,17 +30,19 @@ class Instabot:
         # suggestions = self.driver.find_element_by_xpath("//h4[contains(text(), Suggestions)]")
         # self.driver.execute_script('arguments[0].scrollIntoView()', suggestions)
         sleep(1)
-        scroll_box = self.driver.find_element_by_xpath("/html/body/div[4]/div/div[2]")
+        scroll_box = self.driver.find_element_by_xpath("/html/body/div[4]/div/div/div[2]")
         last_ht, ht = 0, 1
         while last_ht != ht:
             last_ht = ht
         sleep(1)
-        ht = self.driver.execute_script(""" arguments[0].scrollTo(0, arguments[0].scrollHeight);
-    return arguments[0].scrollHeight;""", scroll_box)
+        ht = self.driver.execute_script(""" 
+            arguments[0].scrollTo(0, arguments[0].scrollHeight);
+            return arguments[0].scrollHeight;
+            """, scroll_box)
         links = self.driver.find_elements_by_tag_name('a')
         names = [name.text for name in links if name.text != '']
         print(names)
-        self.driver.find_element_by_xpath('/html/body/div[4]/div/div[1]/div/div[2]/button').click()
+        # self.driver.find_element_by_xpath('/html/body/div[4]/div/div[1]/div/div[2]/button').click()
 
 my_bot = Instabot('anisacurlz', PW)
 my_bot.get_unfollowers()
